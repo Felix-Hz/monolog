@@ -9,7 +9,7 @@ _ __ ___   ___  _ __   ___ | | ___   __ _
 
 # How to
 
-```
+```bash
 # UNIX
 cd /path/to/monolog
 chmod +x ./run.sh
