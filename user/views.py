@@ -1,5 +1,5 @@
 from django.contrib.auth import login
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.views.generic import CreateView
@@ -11,6 +11,7 @@ from .forms import SignupForm
 
 class UserLoginView(LoginView):
     redirect_authenticated_user = True
+    template_name = "login.html"
 
     def get_success_url(self):
         return reverse_lazy("home")
@@ -23,7 +24,7 @@ class UserLoginView(LoginView):
 @method_decorator(login_not_required, name="dispatch")
 class UserSignupView(CreateView):
     form_class = SignupForm
-    template_name = "registration/signup.html"
+    template_name = "signup.html"
     success_url = reverse_lazy("home")
 
     def form_valid(self, form):
@@ -36,3 +37,11 @@ class UserSignupView(CreateView):
     def form_invalid(self, form):
         messages.error(self.request, "Please correct the errors below.")
         return self.render_to_response(self.get_context_data(form=form))
+
+
+class UserLogoutView(LogoutView):
+    next_page = reverse_lazy("login")
+
+    def dispatch(self, request, *args, **kwargs):
+        messages.info(request, "You have been logged out.")
+        return super().dispatch(request, *args, **kwargs)
