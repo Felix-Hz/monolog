@@ -8,6 +8,5 @@ wheels/
 .DS_Store
 
 *.sqlite3
-
-# Virtual environments
+.idea
 .venv

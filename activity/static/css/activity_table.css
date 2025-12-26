@@ -1,0 +1,27 @@
+table,
+th,
+td {
+    border: var(--default-border);
+}
+
+td {
+    text-align: left;
+    padding: 2px;
+}
+
+.activity-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.delete-activity-header {
+    text-align: center;
+}
+
+.delete-activity-button {
+    background-color: #e74c3c;
+    text-decoration: none;
+    color: white;
+    padding: 0 6px;
+
+}
