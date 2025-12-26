@@ -1,0 +1,21 @@
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/activity_form.css' %}" />
+{% endblock %}
+
+<form id="add-activity-form" method="post" action="{% url 'create_activity' %}">
+  {% csrf_token %}
+
+  {% for field in form %}
+    <div class="form-group">
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {% if field.errors %}
+        <span class="error">{{ field.errors }}</span>
+      {% endif %}
+    </div>
+  {% endfor %}
+
+  <button type="submit">Save</button>
+</form>

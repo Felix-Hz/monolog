@@ -1,0 +1,17 @@
+#add-activity-form {
+    padding: 20px;
+    border: var(--default-border);
+    border-radius: 5px;
+    margin: 0 0 15px 0;
+}
+
+#add-activity-form>button {
+    margin-top: 10px;
+    padding: 4px 14px;
+}
+
+.form-group {
+    margin-bottom: 2px;
+    display: flex;
+    flex-direction: column;
+}

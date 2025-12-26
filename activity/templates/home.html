@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+  <link rel="stylesheet" href="{% static 'css/home.css' %}" />
+{% endblock %}
+
+{% block title %}
+  Home Page
+{% endblock %}
+
+{% block extra_js %}
+  <script src="{% static 'js/show_form.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+  <h1 style="display: inline;">Track your activities</h1>
+  <button id="add-activity-button">+</button>
+
+  {% include 'activity_form.html' %}
+  {% include 'activity_table.html' %}
+{% endblock %}
