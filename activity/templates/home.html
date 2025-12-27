@@ -11,6 +11,7 @@
 
 {% block extra_js %}
   <script src="{% static 'js/show_form.js' %}"></script>
+  <script src="{% static 'js/walking_cat.js' %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -31,4 +32,6 @@
 
   {% include 'activity_form.html' %}
   {% include 'activity_table.html' %}
+
+  <pre class="walking-cat"></pre>
 {% endblock %}
