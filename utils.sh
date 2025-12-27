@@ -56,11 +56,11 @@ function make_and_migrate {
       docker start redis 2>/dev/null || docker run -d -p 6379:6379 --name redis redis
 
       echo "🚀 Starting Celery worker..."
-      celery -A project worker --loglevel=info &
+      python -m debugpy --listen 5679 -m celery -A project worker --pool=solo --loglevel=info &
       CELERY_PID=$!
 
       echo "🚀 Starting Django server..."
-      python manage.py runserver &
+      python -m debugpy --listen 5678 --wait-for-client manage.py runserver
       DJANGO_PID=$!
 
       # Trap to kill background processes on exit
