@@ -12,7 +12,7 @@ _ __ ___   ___  _ __   ___ | | ___   __ _
 # UNIX
 cd /path/to/monolog
 chmod +x ./run.sh
-./run.sh
+./run.sh [--debug]  # Optional: Attach debuggers to Django and Celery
 
 # Windows
 # Git gives you unix commands, and bash support. 
