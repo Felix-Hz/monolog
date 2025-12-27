@@ -54,7 +54,10 @@
         {% if messages %}
           <div class="messages">
             {% for message in messages %}
-              <div class="message message--{{ message.tags }}">{{ message }}</div>
+              <div class="message message--{{ message.tags }}">
+                {{ message }}
+                <button class="message-close">&times;</button>
+              </div>
             {% endfor %}
           </div>
         {% endif %} {% block content %}
@@ -80,6 +83,7 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/close_toast.js' %}"></script>
     {% block extra_js %}
 
     {% endblock %}

@@ -22,7 +22,7 @@
         <td>{{ activity.status }}</td>
         <td>{{ activity.updated_at }}</td>
         <td class="delete-activity-header">
-          <a href="{% url 'delete_activity' activity.id %}"><button class="delete-activity-button">X</button></a>
+          <a href="{% url 'delete_activity' activity.id %}"><button class="delete-activity-button">&times;</button></a>
         </td>
       </tr>
     {% endfor %}
@@ -32,4 +32,6 @@
     <h4>Nothing to show yet!</h4>
     <p>Log an activity to get started</p>
   </div>
+
+  <pre class="walking-cat"></pre>
 {% endif %}
