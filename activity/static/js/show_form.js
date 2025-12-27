@@ -7,7 +7,7 @@ $(document).ready(function () {
     addButton.click(function () {
         if (acitivityForm.is(":visible")) {
             acitivityForm.hide();
-            addButton.text("+");
+            addButton.text("Add");
         } else {
             addButton.text("Hide");
             acitivityForm.toggle();

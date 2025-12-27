@@ -14,8 +14,20 @@
 {% endblock %}
 
 {% block content %}
-  <h1 style="display: inline;">Track your activities</h1>
-  <button id="add-activity-button">+</button>
+  <section class="activity-main">
+    <h1>Track your activities</h1>
+    <div>
+      <button id="add-activity-button" class="activity-button">Add</button>
+      <form method="post" action="{% url 'export_activities' %}" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="activity-button">Create Export</button>
+      </form>
+
+      {% if last_export %}
+        <a href="{{ last_export.url }}" style="all: unset;" download><button class="activity-button">Download Export</button></a>
+      {% endif %}
+    </div>
+  </section>
 
   {% include 'activity_form.html' %}
   {% include 'activity_table.html' %}

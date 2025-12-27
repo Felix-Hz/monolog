@@ -2,18 +2,33 @@ import logging
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from .forms import ActivityForm
-from .models import ActivityModel
+from .models import ActivityModel, ActivityExportModel
 from .tasks import export_activity_task
 
 
 def goto_home(request):
     activities = ActivityModel.objects.filter(user=request.user)
+    last_export = (
+        ActivityExportModel.objects.filter(user=request.user)
+        .order_by("-exported_at")
+        .first()
+    )
     logging.debug(
-        "Grabbed some act-activities",
-        extra={"count": len(activities), "user_id": request.user.id},
+        "Loaded home page",
+        extra={
+            "count": len(activities),
+            "user_id": request.user.id,
+            "has_last_export": bool(last_export),
+        },
     )
     return render(
-        request, "home.html", {"form": ActivityForm(), "activities": activities}
+        request,
+        "home.html",
+        {
+            "form": ActivityForm(),
+            "activities": activities if activities else None,
+            "last_export": last_export.file_path if last_export else None,
+        },
     )
 
 

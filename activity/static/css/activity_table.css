@@ -25,3 +25,12 @@ td {
     padding: 0 6px;
 
 }
+
+.nothing-to-show-msg {
+    padding: var(--spacing-unit);
+    border-radius: 4px;
+    margin-bottom: var(--spacing-unit);
+    background-color: #eef;
+    border-left: 4px solid var(--border-color);
+    color: var(--primary-color);
+}

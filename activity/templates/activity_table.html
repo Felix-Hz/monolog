@@ -4,26 +4,32 @@
   <link rel="stylesheet" href="{% static 'css/activity_table.css' %}" />
 {% endblock %}
 
-<table class="activity-table">
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Tags</th>
-    <th>Status</th>
-    <th>Created At</th>
-    <th>Delete</th>
-  </tr>
-
-  {% for activity in activities %}
+{% if activities %}
+  <table class="activity-table">
     <tr>
-      <td>{{ activity.name }}</td>
-      <td>{{ activity.description }}</td>
-      <td>{{ activity.tags }}</td>
-      <td>{{ activity.status }}</td>
-      <td>{{ activity.updated_at }}</td>
-      <td class="delete-activity-header">
-        <a href="{% url 'delete_activity' activity.id %}"><button class="delete-activity-button">X</button></a>
-      </td>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Tags</th>
+      <th>Status</th>
+      <th>Created At</th>
+      <th>Delete</th>
     </tr>
-  {% endfor %}
-</table>
+    {% for activity in activities %}
+      <tr>
+        <td>{{ activity.name }}</td>
+        <td>{{ activity.description }}</td>
+        <td>{{ activity.tags }}</td>
+        <td>{{ activity.status }}</td>
+        <td>{{ activity.updated_at }}</td>
+        <td class="delete-activity-header">
+          <a href="{% url 'delete_activity' activity.id %}"><button class="delete-activity-button">X</button></a>
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
+{% else %}
+  <div class="nothing-to-show-msg">
+    <h4>Nothing to show yet!</h4>
+    <p>Log an activity to get started</p>
+  </div>
+{% endif %}

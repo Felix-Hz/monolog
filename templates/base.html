@@ -34,12 +34,6 @@
             </li>
             {% if user.is_authenticated %}
               <li>
-                <form method="post" action="{% url 'export_activities' %}" style="display: inline;">
-                  {% csrf_token %}
-                  <button type="submit" style="all: unset; cursor: pointer;">Export</button>
-                </form>
-              </li>
-              <li>
                 <form method="post" action="{% url 'logout' %}" style="display: inline;">
                   {% csrf_token %}
                   <button type="submit" style="all: unset; cursor: pointer;">Logout</button>

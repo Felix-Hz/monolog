@@ -1,5 +1,11 @@
-#add-activity-button {
-    padding: 0 6px;
+.activity-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.activity-button {
+    padding: 3px 8px;
     text-align: center;
     font-weight: 700;
 }

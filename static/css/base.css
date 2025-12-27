@@ -71,10 +71,6 @@ button:hover {
     transition: opacity 0.2s;
 }
 
-.nav-menu a:hover {
-    opacity: 0.8;
-}
-
 /* Main Content */
 .site-content {
     flex: 1;
