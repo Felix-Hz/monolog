@@ -51,30 +51,45 @@ function make_and_migrate {
     echo "✅ Database up to date"
 }
 
-  function spin_services_up {
-      echo "🚀 Starting Redis..."
-      docker start redis 2>/dev/null || docker run -d -p 6379:6379 --name redis redis
+function spin_services_up {
+    echo "🚀 Starting Redis..."
+    docker start redis 2>/dev/null || docker run -d -p 6379:6379 --name redis redis
 
-      echo "🚀 Starting Celery worker..."
-      python -m debugpy --listen 5679 -m celery -A project worker --pool=solo --loglevel=info &
-      CELERY_PID=$!
+    if [[ "$1" == "--debug" ]]; then
+        echo "🐛 Debug mode enabled"
+        echo "🚀 Starting Celery worker with debugger..."
+        python -m debugpy --listen 5679 -m celery -A project worker --pool=solo --loglevel=info &
+        CELERY_PID=$!
 
-      echo "🚀 Starting Django server..."
-      python -m debugpy --listen 5678 --wait-for-client manage.py runserver
-      DJANGO_PID=$!
+        echo "🚀 Starting Django server with debugger..."
+        python -m debugpy --listen 5678 manage.py runserver --noreload &
+        DJANGO_PID=$!
 
-      # Trap to kill background processes on exit
-      trap "kill $CELERY_PID $DJANGO_PID 2>/dev/null; docker stop redis" EXIT
+        echo "📍 Debugger ports:"
+        echo "   Django: localhost:5678"
+        echo "   Celery: localhost:5679"
+    else
+        echo "🚀 Starting Celery worker..."
+        python -m celery -A project worker --loglevel=info &
+        CELERY_PID=$!
 
-      echo "✅ All services started"
-      echo "   Django server: http://127.0.0.1:8000"
-      echo "   Celery worker is running in background"
-      echo "   Redis server is running in background"
-      echo "   Press Ctrl+C to stop all services"
+        echo "🚀 Starting Django server..."
+        python manage.py runserver &
+        DJANGO_PID=$!
+    fi
 
-      # Wait for processes
-      wait
-  }
+    echo "✅ All services started"
+    echo "   Django server: http://127.0.0.1:8000"
+    echo "   Celery worker is running in background"
+    echo "   Redis server is running in background"
+    echo "   Press Ctrl+C to stop all services"
+
+    # Trap to kill background processes on exit
+    trap "kill $CELERY_PID $DJANGO_PID 2>/dev/null; docker stop redis" EXIT
+
+    # Wait for processes
+    wait
+}
 
 function monofetch {
     echo " _ __  ___   ___  _ __   ___ | | ___   __ _"

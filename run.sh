@@ -25,5 +25,5 @@ make_and_migrate
 divider
 
 echo "⚙️ Running services..."
-spin_services_up
+spin_services_up "$1"
 divider
