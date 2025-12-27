@@ -24,6 +24,6 @@ echo "⚙️ Checking for outstanding migrations..."
 make_and_migrate
 divider
 
-echo "⚙️ Running server..."
-spin_server_up
+echo "⚙️ Running services..."
+spin_services_up
 divider
