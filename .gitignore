@@ -7,6 +7,8 @@ wheels/
 *.egg-info
 .DS_Store
 
+exports/
+
 *.sqlite3
 .idea
 .venv

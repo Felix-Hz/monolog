@@ -8,5 +8,6 @@ urlpatterns = [
         views.delete_activity,
         name="delete_activity",
     ),
+    path("activity/export/", views.export_activities, name="export_activities"),
     path("", views.goto_home, name="home"),
 ]
