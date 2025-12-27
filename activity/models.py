@@ -26,3 +26,18 @@ class ActivityModel(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ActivityExportModel(models.Model):
+    def user_directory_path(instance, filename):
+        # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+        return "user_{0}/{1}".format(instance.user.id, filename)
+
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    activity_ids = models.JSONField(default=list, blank=True)
+    exported_at = models.DateTimeField(auto_now_add=True)
+    file_path = models.FileField(upload_to=user_directory_path)
+
+    def __str__(self):
+        return f"Export {self.id} for {self.user.username} at {self.exported_at}"
